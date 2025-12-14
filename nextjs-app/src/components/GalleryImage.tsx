@@ -1,10 +1,11 @@
 'use client';
 
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion ,AnimatePresence} from 'framer-motion';
 import Image from 'next/image';
-import { Eye, Heart, Share2, MapPin,Plus } from 'lucide-react';
+import { Eye, Heart, Share2, MapPin } from 'lucide-react';
 import { useState } from 'react';
 import { cn } from '@/lib/utils';
+
 interface GalleryImageProps {
   image: {
     id: number;
@@ -31,6 +32,7 @@ export function GalleryImage({ image, onOpen }: GalleryImageProps) {
       className="group relative overflow-hidden rounded-2xl bg-neutral-800 border border-neutral-700 cursor-pointer"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
+      onClick={() => onOpen(image)} // ✅ Click to expand
     >
       {/* Image */}
       <div className="relative aspect-square overflow-hidden">
@@ -39,8 +41,7 @@ export function GalleryImage({ image, onOpen }: GalleryImageProps) {
           alt={image.title}
           fill
           className="object-cover transition-transform duration-700 group-hover:scale-110"
-          placeholder="blur"
-          blurDataURL="/images/placeholder.jpg"
+          loading="lazy"
         />
         
         {/* Gradient overlay on hover */}
@@ -52,7 +53,7 @@ export function GalleryImage({ image, onOpen }: GalleryImageProps) {
         />
       </div>
 
-      {/* Content overlay */}
+      {/* Content overlay - appears on hover */}
       <AnimatePresence>
         {isHovered && (
           <motion.div
@@ -60,61 +61,34 @@ export function GalleryImage({ image, onOpen }: GalleryImageProps) {
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: 20, opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="absolute inset-x-0 bottom-0 p-6"
+            className="absolute inset-x-0 bottom-0 p-4"
           >
-            <div className="space-y-3">
-              <div className="flex items-center gap-2 text-[var(--savanna-gold)] text-sm">
-                <MapPin className="w-4 h-4" />
+            <div className="space-y-2">
+              <div className="flex items-center gap-2 text-yellow-400 text-xs">
+                <MapPin className="w-3 h-3" />
                 <span>{image.category}</span>
               </div>
               
-              <h3 className="text-xl font-bold text-white group-hover:text-[var(--savanna-gold)] transition-colors">
+              <h3 className="text-sm font-bold text-white group-hover:text-yellow-400 transition-colors">
                 {image.title}
               </h3>
               
-              <p className="text-neutral-300 text-sm leading-relaxed">
+              <p className="text-neutral-300 text-xs leading-relaxed line-clamp-2">
                 {image.description}
               </p>
 
-              {/* Actions */}
-              <div className="flex items-center justify-between pt-4 border-t border-neutral-700">
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setIsLiked(!isLiked);
-                  }}
-                  className={cn(
-                    "flex items-center gap-2 text-sm transition-colors",
-                    isLiked ? "text-red-500" : "text-neutral-400 hover:text-white"
-                  )}
-                >
-                  <Heart className={cn("w-4 h-4", isLiked && "fill-current")} />
-                  <span>{isLiked ? 'Liked' : 'Like'}</span>
-                </button>
-
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    onOpen(image);
-                  }}
-                  className="flex items-center gap-2 text-[var(--savanna-gold)] hover:text-white transition-colors text-sm font-medium"
-                >
-                  <Eye className="w-4 h-4" />
-                  View
-                </button>
-              </div>
+              {/* View Button */}
+              <motion.button
+                className="w-full mt-3 bg-yellow-400 hover:bg-orange-500 text-neutral-900 text-xs font-bold py-2 px-3 rounded-full transition-all duration-300 flex items-center justify-center gap-1"
+                whileHover={{ scale: 1.05 }}
+              >
+                <Eye className="w-3 h-3" />
+                View Full Size
+              </motion.button>
             </div>
           </motion.div>
         )}
       </AnimatePresence>
-
-      {/* Plus icon - rotates on hover */}
-      <motion.div
-        className="absolute top-4 right-4 w-10 h-10 bg-[var(--savanna-gold)]/20 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
-        whileHover={{ rotate: 90 }}
-      >
-        <Plus className="w-5 h-5 text-[var(--savanna-gold)]" />
-      </motion.div>
     </motion.div>
   );
 }

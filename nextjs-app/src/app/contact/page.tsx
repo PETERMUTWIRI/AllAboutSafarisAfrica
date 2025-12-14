@@ -1,4 +1,3 @@
-import { Breadcrumb } from '@/components/Breadcrumb';
 import { ContactContent } from '@/components/ContactContent';
 
 export const metadata = {
@@ -7,17 +6,5 @@ export const metadata = {
 };
 
 export default function ContactPage() {
-  return (
-    <>
-      <Breadcrumb 
-        title="Contact Us"
-        items={[
-          { label: 'Home', href: '/' },
-          { label: 'Pages', href: '#' },
-          { label: 'Contact', href: '/contact' },
-        ]}
-      />
-      <ContactContent />
-    </>
-  );
+  return <ContactContent />;
 }

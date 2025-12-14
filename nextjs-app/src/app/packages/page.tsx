@@ -1,4 +1,3 @@
-import { Breadcrumb } from '@/components/Breadcrumb';
 import { PackagesContent } from '@/components/PackagesContent';
 
 export const metadata = {
@@ -7,17 +6,5 @@ export const metadata = {
 };
 
 export default function PackagesPage() {
-  return (
-    <>
-      <Breadcrumb 
-        title="Travel Packages"
-        items={[
-          { label: 'Home', href: '/' },
-          { label: 'Pages', href: '#' },
-          { label: 'Packages', href: '/packages' },
-        ]}
-      />
-      <PackagesContent />
-    </>
-  );
+  return <PackagesContent />;
 }

@@ -22,7 +22,7 @@ export function Hero() {
 
   return (
     <motion.section 
-      className="relative h-screen overflow-hidden"
+      className="relative h-64 overflow-hidden"
       style={{ opacity }}
     >
       {/* Background image with subtle Ken Burns effect */}

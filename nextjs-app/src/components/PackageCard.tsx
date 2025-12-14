@@ -34,6 +34,9 @@ export function PackageCard({
   category,
   index 
 }: PackageCardProps) {
+  const whatsappNumber = '254700064857';
+  const message = `Booking Inquiry - ${title} (ID: ${id})\nDuration: ${duration}\nDays: ${days}\nCategory: ${category}\nPrice: ${price}\nLocations: ${locations}\nDescription: ${description}\n\nPlease reserve a spot for me on this package.\nTraveler name: \nPreferred dates: \nContact phone/email:`;
+  const waLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
   return (
     <motion.div
       layout
@@ -143,7 +146,7 @@ export function PackageCard({
           transition={{ delay: 0.6 + (index * 0.1), type: "spring", stiffness: 80 }}
           className="grid grid-cols-2 gap-3 pt-2"
         >
-          <Link href="https://wa.me/254700064857" target="_blank">
+          <Link href={waLink} target="_blank" rel="noopener noreferrer">
             <Button 
               variant="outline"
               className="w-full border-[var(--savanna-gold)] text-[var(--savanna-gold)] hover:bg-[var(--savanna-gold)] hover:text-neutral-900 transition-all duration-300 flex items-center justify-center gap-2 py-3"
@@ -153,7 +156,7 @@ export function PackageCard({
             </Button>
           </Link>
 
-          <Link href="/booking">
+          <Link href={waLink} target="_blank" rel="noopener noreferrer">
             <Button 
               className="w-full bg-[var(--acacia-green)] hover:bg-[var(--earth-ochre)] text-white font-bold transition-all duration-300 flex items-center justify-center gap-2 py-3 group"
             >
