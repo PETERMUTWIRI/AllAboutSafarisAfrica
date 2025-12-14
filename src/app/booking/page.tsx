@@ -11,14 +11,7 @@ export const metadata = {
 export default function BookingPage() {
   return (
     <>  {/* ✅ ADDED Fragment wrapper */}
-      <Breadcrumb 
-        title="Online Booking"
-        items={[
-          { label: 'Home', href: '/' },
-          { label: 'Pages', href: '#' },
-          { label: 'Booking', href: '/booking' },
-        ]}
-      />
+      
       <BookingForm />
       <Newsletter />
       <BackToTop />
