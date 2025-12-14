@@ -141,6 +141,14 @@ export function Navbar() {
               <Menu className="w-6 h-6" />
             </button>
 
+            {/* Mobile Logo & Name (visible on small screens) */}
+            <Link href="/" className="lg:hidden flex items-center gap-3 ml-2">
+              <div className="w-9 h-9 rounded-full overflow-hidden border border-white/20">
+                <Image src="/images/safaris-logo.jpeg" alt="All About Safaris" width={36} height={36} className="object-cover" />
+              </div>
+              <span className={`${playfair.className} text-white text-sm font-bold`}>All About Safaris</span>
+            </Link>
+
             {/* Navigation Links */}
             <div className="flex items-center gap-6">
               {/* Desktop Links */}

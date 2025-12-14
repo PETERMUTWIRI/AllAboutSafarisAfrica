@@ -7,6 +7,8 @@ import { Playfair_Display } from 'next/font/google';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
+import { useState } from 'react';
+import { BookingModal } from './BookingModal';
 const playfair = Playfair_Display({ subsets: ['latin'] });
 
 interface PackageCardProps {
@@ -37,6 +39,8 @@ export function PackageCard({
   const whatsappNumber = '254700064857';
   const message = `Booking Inquiry - ${title} (ID: ${id})\nDuration: ${duration}\nDays: ${days}\nCategory: ${category}\nPrice: ${price}\nLocations: ${locations}\nDescription: ${description}\n\nPlease reserve a spot for me on this package.\nTraveler name: \nPreferred dates: \nContact phone/email:`;
   const waLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+  const [isBookingOpen, setIsBookingOpen] = useState(false);
+
   return (
     <motion.div
       layout
@@ -156,16 +160,23 @@ export function PackageCard({
             </Button>
           </Link>
 
-          <Link href={waLink} target="_blank" rel="noopener noreferrer">
-            <Button 
-              className="w-full bg-[var(--acacia-green)] hover:bg-[var(--earth-ochre)] text-white font-bold transition-all duration-300 flex items-center justify-center gap-2 py-3 group"
-            >
-              Book Now
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-            </Button>
-          </Link>
+          <button
+            onClick={() => setIsBookingOpen(true)}
+            className="w-full inline-flex items-center justify-center gap-2 bg-[var(--acacia-green)] hover:bg-[var(--earth-ochre)] text-white font-bold transition-all duration-300 py-3 rounded-lg"
+          >
+            Book Now
+            <ArrowRight className="w-4 h-4 transform transition-transform" />
+          </button>
         </motion.div>
       </div>
+
+      {isBookingOpen && (
+        <BookingModal
+          isOpen={isBookingOpen}
+          onClose={() => setIsBookingOpen(false)}
+          packageData={{ id, title, duration, days, category, price, locations, description }}
+        />
+      )}
     </motion.div>
   );
 }
